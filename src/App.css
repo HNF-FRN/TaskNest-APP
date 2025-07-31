@@ -1,0 +1,101 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-float {
+  animation: float 2.5s ease-in-out infinite;
+}
+
+@keyframes bounce-rotate {
+  0% { transform: translateY(0) rotate(-5deg); }
+  20% { transform: translateY(-18px) rotate(5deg); }
+  40% { transform: translateY(0) rotate(-5deg); }
+  60% { transform: translateY(-12px) rotate(5deg); }
+  80% { transform: translateY(0) rotate(-5deg); }
+  100% { transform: translateY(0) rotate(-5deg); }
+}
+
+.animate-bounce-rotate {
+  animation: bounce-rotate 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes feather-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.7) rotate(-10deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(6px) scale(1.05) rotate(3deg);
+  }
+  85% {
+    transform: translateY(-2px) scale(0.98) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.animate-feather-fall {
+  animation: feather-fall 0.7s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+@keyframes feather-wiggle-glow {
+  0% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 0 0 #fbbf24); }
+  10% { transform: rotate(-10deg) scale(1.05); filter: drop-shadow(0 0 12px #fbbf24); }
+  20% { transform: rotate(10deg) scale(1.1); filter: drop-shadow(0 0 16px #fbbf24); }
+  30% { transform: rotate(-8deg) scale(1.08); filter: drop-shadow(0 0 12px #fbbf24); }
+  40% { transform: rotate(8deg) scale(1.05); filter: drop-shadow(0 0 8px #fbbf24); }
+  50% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 0 0 #fbbf24); }
+  100% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 0 0 #fbbf24); }
+}
+
+.animate-feather-wiggle-glow {
+  animation: feather-wiggle-glow 1.2s cubic-bezier(0.4,0,0.2,1);
+}
