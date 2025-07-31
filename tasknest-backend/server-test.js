@@ -16,6 +16,9 @@ dotenv.config({ path: join(__dirname, '.env') })
 
 const app = express()
 
+// Trust proxy for Railway deployment (required for rate limiting)
+app.set('trust proxy', 1)
+
 // Basic CORS
 app.use(cors({
   origin: ['http://localhost:3000', 'http://localhost:5173'],

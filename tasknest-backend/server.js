@@ -17,6 +17,9 @@ dotenv.config({ path: join(__dirname, '.env') })
 
 const app = express()
 
+// Trust proxy for Railway deployment (required for rate limiting)
+app.set('trust proxy', 1)
+
 // Security middleware
 app.use(helmetConfig)
 app.use(cors(corsOptions))
