@@ -1,77 +1,71 @@
-<<<<<<< HEAD
-# Welcome to your Lovable project
+# TaskNest-APP
 
-## Project info
+## Project Info
 
-**URL**: https://lovable.dev/projects/3d4590cf-ebce-4723-9336-076d48ffd4cc
+This project contains both a Vite/React frontend and a Node.js/Express backend (in `tasknest-backend`).
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## Local Development
 
-**Use Lovable**
+### Prerequisites
+- Node.js & npm installed ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3d4590cf-ebce-4723-9336-076d48ffd4cc) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+### Steps
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# 1. Clone the repository
+ git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Navigate to the project directory
+ cd <YOUR_PROJECT_NAME>
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Install dependencies for both frontend and backend
+ npm install
+ cd tasknest-backend && npm install && cd ..
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# 4. Start the backend (in one terminal)
+ cd tasknest-backend
+ npm run dev
+
+# 5. Start the frontend (in another terminal)
+ npm run dev:frontend
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Railway Deployment
 
-**Use GitHub Codespaces**
+This project is configured for single-domain deployment on Railway, where the backend serves the built frontend. 
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**📖 For detailed deployment instructions, see [RAILWAY_DEPLOYMENT.md](./RAILWAY_DEPLOYMENT.md)**
 
-## What technologies are used for this project?
+### Quick Setup
+1. Connect your GitHub repo to Railway
+2. Set environment variables (see deployment guide)
+3. Railway will automatically build and deploy
 
-This project is built with:
+### Key Features
+- ✅ Single domain deployment (backend serves frontend)
+- ✅ Automatic build process
+- ✅ Security middleware included
+- ✅ Rate limiting and CORS protection
+- ✅ Health check endpoint at `/api/health`
 
+---
+
+## Technologies Used
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Node.js
+- Express
+- MongoDB
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/3d4590cf-ebce-4723-9336-076d48ffd4cc) and click on Share -> Publish.
+## Custom Domains
+To connect a custom domain, use the Railway dashboard under Project > Settings > Domains.
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
-=======
-
->>>>>>> 35a543c0db6bf62658ac45d8783e0c2fcceee2bc
+---

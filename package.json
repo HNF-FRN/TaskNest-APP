@@ -9,11 +9,7 @@
     "dev:frontend": "vite",
     "dev:backend": "nodemon tasknest-backend/server.js",
     "build": "vite build",
-<<<<<<< HEAD
     "postinstall": "cd tasknest-backend && npm install && cd .. && npm run build",
-=======
-    "postinstall": "npm run build",
->>>>>>> 35a543c0db6bf62658ac45d8783e0c2fcceee2bc
     "build:dev": "vite build --mode development",
     "build:prod": "vite build && npm run start",
     "install:backend": "cd tasknest-backend && npm install",
