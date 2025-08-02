@@ -1,11 +1,22 @@
-import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckSquare, Mail, Lock, User, Eye, EyeOff, Loader2 } from "lucide-react";
+import {
+  CheckSquare,
+  Mail,
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  Loader2
+} from "lucide-react";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -29,14 +40,21 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: ""
   });
+
+  const navigate = useNavigate();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
   const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    setError(null); // Clear error when user starts typing
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setError(null);
+  };
+
+  const handleClose = () => {
+    onClose();
+    navigate("/"); // Redirect to landing page
   };
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -48,30 +66,24 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           email: formData.email,
-          password: formData.password,
-        }),
+          password: formData.password
+        })
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.error || "Login failed");
       }
 
-      console.log("Login successful:", data);
-      // Store the token in localStorage or state management
       localStorage.setItem("token", data.token);
-      onClose();
-      // You can add a callback here to update the app state
-      
+      handleClose();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Login failed";
       setError(errorMessage);
-      console.error("Login error:", err);
     } finally {
       setIsLoading(false);
     }
@@ -82,7 +94,6 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
     setIsLoading(true);
     setError(null);
 
-    // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       setIsLoading(false);
@@ -93,37 +104,38 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
       const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           username: formData.name,
           email: formData.email,
-          password: formData.password,
-        }),
+          password: formData.password
+        })
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         throw new Error(data.error || "Registration failed");
       }
 
-      console.log("Registration successful:", data);
-      onClose();
-      // You can add a callback here to update the app state
-      
+      handleClose();
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Registration failed";
       setError(errorMessage);
-      console.error("Registration error:", err);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) handleClose();
+      }}
+    >
       <DialogContent className="sm:max-w-md p-0 overflow-hidden">
+        {/* Header */}
         <div className="bg-gradient-primary p-6 text-center">
           <div className="inline-flex items-center gap-2 mb-2">
             <div className="p-2 bg-white/20 rounded-lg">
@@ -133,7 +145,8 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
           </div>
           <p className="text-primary-foreground/90">Organize your tasks, achieve your goals</p>
         </div>
-        
+
+        {/* Body */}
         <div className="p-6">
           <Tabs defaultValue={defaultTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
@@ -141,6 +154,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
 
+            {/* Sign In Tab */}
             <TabsContent value="signin" className="space-y-4 mt-6">
               <form onSubmit={handleSignIn} className="space-y-4">
                 {error && (
@@ -187,12 +201,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
                     </Button>
                   </div>
                 </div>
-                <Button 
-                  type="submit" 
-                  className="w-full" 
-                  variant="hero"
-                  disabled={isLoading}
-                >
+                <Button type="submit" className="w-full" variant="hero" disabled={isLoading}>
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -202,14 +211,10 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
                     "Sign In"
                   )}
                 </Button>
-                <div className="text-center">
-                  <Button variant="link" className="text-sm">
-                    Forgot your password?
-                  </Button>
-                </div>
               </form>
             </TabsContent>
 
+            {/* Sign Up Tab */}
             <TabsContent value="signup" className="space-y-4 mt-6">
               <form onSubmit={handleSignUp} className="space-y-4">
                 {error && (
@@ -294,12 +299,7 @@ const AuthModal = ({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) =
                     </Button>
                   </div>
                 </div>
-                <Button 
-                  type="submit" 
-                  className="w-full" 
-                  variant="hero"
-                  disabled={isLoading}
-                >
+                <Button type="submit" className="w-full" variant="hero" disabled={isLoading}>
                   {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
