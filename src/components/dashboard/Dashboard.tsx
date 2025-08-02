@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Search, Filter, CheckSquare, Clock, ListTodo, Trophy } from "lucide-react";
 import TaskCard, { Task } from "./TaskCard";
 import TaskForm from "./TaskForm";
-import mascot from '@/assets/logo.png'; // Use your mascot image
+import mascot from '@/assets/logo.png';
 import nest from '@/assets/nest.png';
 import feather from '@/assets/feather.png';
 import welcomeBird from '@/assets/welcome-bird.png';
@@ -17,34 +17,7 @@ interface DashboardProps {
 }
 
 const Dashboard = ({ onBackToHome }: DashboardProps) => {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: "1",
-      title: "Design new landing page",
-      description: "Create wireframes and mockups for the new product landing page",
-      status: "in-progress",
-      priority: "high",
-      deadline: "2024-01-15",
-      createdAt: "2024-01-01",
-    },
-    {
-      id: "2",
-      title: "Review user feedback",
-      description: "Analyze and categorize user feedback from last month",
-      status: "todo",
-      priority: "medium",
-      deadline: "2024-01-20",
-      createdAt: "2024-01-02",
-    },
-    {
-      id: "3",
-      title: "Update documentation",
-      description: "Update API documentation with new endpoints",
-      status: "completed",
-      priority: "low",
-      createdAt: "2024-01-03",
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -52,18 +25,19 @@ const Dashboard = ({ onBackToHome }: DashboardProps) => {
   const [activeTab, setActiveTab] = useState("all");
 
   const filteredTasks = tasks.filter((task) => {
-    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         task.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    
+    const matchesSearch =
+      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      task.description?.toLowerCase().includes(searchQuery.toLowerCase());
+
     if (activeTab === "all") return matchesSearch;
     return matchesSearch && task.status === activeTab;
   });
 
   const taskStats = {
     total: tasks.length,
-    completed: tasks.filter(t => t.status === "completed").length,
-    inProgress: tasks.filter(t => t.status === "in-progress").length,
-    todo: tasks.filter(t => t.status === "todo").length,
+    completed: tasks.filter((t) => t.status === "completed").length,
+    inProgress: tasks.filter((t) => t.status === "in-progress").length,
+    todo: tasks.filter((t) => t.status === "todo").length,
   };
 
   const handleCreateTask = (taskData: Omit<Task, "id" | "createdAt">) => {
@@ -77,23 +51,25 @@ const Dashboard = ({ onBackToHome }: DashboardProps) => {
 
   const handleEditTask = (taskData: Omit<Task, "id" | "createdAt">) => {
     if (!editingTask) return;
-    
-    setTasks(tasks.map(task =>
-      task.id === editingTask.id
-        ? { ...task, ...taskData }
-        : task
-    ));
+
+    setTasks(
+      tasks.map((task) =>
+        task.id === editingTask.id ? { ...task, ...taskData } : task
+      )
+    );
     setEditingTask(null);
   };
 
   const handleDeleteTask = (taskId: string) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+    setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
   const handleStatusChange = (taskId: string, status: Task["status"]) => {
-    setTasks(tasks.map(task =>
-      task.id === taskId ? { ...task, status } : task
-    ));
+    setTasks(
+      tasks.map((task) =>
+        task.id === taskId ? { ...task, status } : task
+      )
+    );
   };
 
   const openEditForm = (task: Task) => {
