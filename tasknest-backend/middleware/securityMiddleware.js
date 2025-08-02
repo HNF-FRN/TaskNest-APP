@@ -1,3 +1,5 @@
+// securityMiddleware.js
+
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 
@@ -37,13 +39,13 @@ export const helmetConfig = helmet({
   crossOriginEmbedderPolicy: false,
 })
 
-// CORS configuration
+// ✅ Fixed CORS configuration
 export const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? true // Allow all origins in production for Railway
+  origin: process.env.NODE_ENV === 'production'
+    ? 'https://tasknest.up.railway.app'
     : ['http://localhost:3000', 'http://localhost:5173'],
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-} 
+}
